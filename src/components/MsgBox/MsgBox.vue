@@ -28,8 +28,12 @@
                 }
             }
         },
+        mounted () {
+
+        },
         methods: {
             show (options) {
+                
                 if (options.hasOwnProperty('show'))  Vue.set(this.options,'show', options.show)
                 else Vue.set(this.options,'show', false)
 
@@ -51,8 +55,13 @@
                 if (options.hasOwnProperty('action'))  Vue.set(this.options,'action', options.action)
                 else Vue.set(this.options,'action', () => {})
 
+                  this.$nextTick(() => {
+                      this.$root.$el.querySelector('.yo-scroll').style.overflow = 'hidden';
+                })
+
             },
             cancleAction () {
+                this.$root.$el.querySelector('.yo-scroll').style.overflow = 'auto';
                 this.options.show = false
             },
             otherAction () {
@@ -73,14 +82,14 @@
         width: 100%;
         height: 100%;
         background: rgba(0,0,0,.5);
-        overflow-y: hidden;
+        overflow: hidden;
         z-index: 9999;
         .box {
             position: fixed;
             width: 80%;
             left: 0;
             right: 0;
-            top: 30%;
+            top: 35%;
             margin: auto;
             border-radius: 4px;
             background: #fff;

@@ -13,11 +13,13 @@ export default {
 <style>
   html {
     -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
   }
   body {
     line-height: 1.6;
     font-family: -apple-system-font,Helvetica Neue,sans-serif;
+    height: 100%;
   }
   * {
     margin: 0;

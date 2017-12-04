@@ -57,12 +57,13 @@
                         width: 90%;
                         padding: .9rem 0 .5rem .3rem;
                         overflow: hidden;
+                        font-size: 1rem;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                     }
                     .ac-msg {
                         padding: .3rem .3rem .5rem .3rem;
-                        font-size: .4rem
+                        font-size: .7rem
                         color: #aaa;
                     }
                     .point {

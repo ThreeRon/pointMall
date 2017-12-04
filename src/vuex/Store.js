@@ -28,17 +28,17 @@ const User = {
         });
       });
     }
-	}
+  }
 }
 
 const Goods = {
   state: {
-    goodsData: [],
-		total: 0,
+    goodsData: [], // 第一页的商品数据
+    total: 0,
     page: 1,
-    pageSize: 2,
-    downdata: [],
-    loading: false
+    pageSize: 2,  
+    downdata: [],  // 加载的商品的数据
+    loading: false // 当前正加载（get_goodsData）的状态
   },
   getters: {
     totalPage (state) {
@@ -46,60 +46,52 @@ const Goods = {
     }
   },
   mutations: {
-  		update_goodsData (state, params) {
-  		  let data = params.data
-        let page = params.page
-        // if (data.list.length < 2) {
-        //   data.list.push('')
-        // }
-  		    if (page === 1) {
-          state.goodsData = [data.list]
-        } else {
-            // console.log('******')
-            // data.list.forEach((item => {
-  		       //  console.log(item.title)
-            // }))
-            // console.log('&&&&&&')
-  		      state.downdata.push(data.list)
-          // data.list.forEach((item => {
-          //   state.downdata.push(item)
-          //   console.log('downData:====== ',state.downdata.length)
-          // }))
-        }
-        // console.log(JSON.stringify(state.downdata))
-        // for(let i=0; i<state.downdata.length; i++) {
-  		   //    let item = state.downdata[i]
-        //   console.log('-------begin-------')
-        //   for(let j=0; j<item.length; j++) {
-  		   //      let v = item[j]
-        //     console.log('记录数：',v.title, '页数：', page)
-        //   }
-        //   console.log('-------end-------')
-        // }
-
-
-        state.total = data.total
-        state.pageSize = data.pageSize
+    update_goodsData (state, params) {
+      let data = params.data
+      let page = params.page
+      if (page === 1) {
+        state.goodsData = [data.list]
+      } else {
+        state.downdata.push(data.list)
+      }
+      state.total = data.total
+      state.pageSize = data.pageSize
     },
     update_page (state, data) {
-  		  state.page = data
+      state.page = data
     },
     update_loading (state, data) {
       state.loading = data
-      console.log(data,'-----------')
+    },
+    update_goodsItem(state, goodsItem) {
+      let newGoodsData = state.goodsData.map(itemArr => {
+        return itemArr.map(item => {
+          if (item.id === goodsItem.id) {
+            item.surplusNum--
+          }
+          return item
+        })
+      })
+      state.goodsData = newGoodsData
+      let newdownData = state.downdata.map(itemArr => {
+        return itemArr.map(item => {
+          if (item.id === goodsItem.id) {
+            item.surplusNum--
+          }
+          return item
+        })
+      })
+      state.downdata = newdownData
     }
-	},
+  },
   actions: {
     get_goodsData (context, params) {
-      // if (context.state.page == params.page) return
 
       return new Promise((resolve, reject) => {
         getGoods(params).then((res) => {
           if (res.data.code !== 0) {
             reject(res.data.msg);
           }
-          // console.log('page:', params.page)
-          // console.log(('data: ', res.data.data))
           context.commit('update_page', params.page);
           context.commit('update_loading', false);
           context.commit('update_goodsData', {data: res.data.data, page: params.page});
@@ -173,5 +165,5 @@ export default new Vuex.Store({
     Goods,
     Article,
     Record
-	}
+  }
 })

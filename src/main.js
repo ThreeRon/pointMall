@@ -7,8 +7,6 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import store from '@/vuex/Store'
 
-
-
 Vue.config.productionTip = false
 
 

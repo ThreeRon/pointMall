@@ -37,5 +37,7 @@
 </script>
 
 <style lang="stylus" scoped>
-
+.banner-box {
+    width: 100%;
+}
 </style>

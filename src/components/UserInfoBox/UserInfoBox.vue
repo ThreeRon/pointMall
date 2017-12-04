@@ -25,6 +25,7 @@
 <style lang="stylus" scoped>
     .user-box {
         width:100%;
+        box-sizing: border-box;
         padding:10px;
         margin:0 auto;
         border-bottom:1px #e5e5e5 solid;
